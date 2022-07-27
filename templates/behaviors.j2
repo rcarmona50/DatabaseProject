@@ -1,0 +1,82 @@
+<html>
+<head>
+    <title>Behaviors</title>
+</head>
+<body>
+<h1>Behaviors</h1>
+<h3>
+    [<a href="appointments">Appointments |</a>
+    <a href="client"> Clients </a> |
+    <a href="provider"> Providers |</a>
+    <a href="skills"> Skills |</a>
+    Behaviors </a>]
+</h3>
+
+<h1>Behaviors</h1>
+
+<div id="browse">
+    <table border="1" cellpadding="5">
+        {% if data %}
+        <thead>
+        <tr>
+            <!-- iterate through and build the table to display data -->
+            {% for key in data[0].keys() %}
+                <!-- headers -->
+                <th scope="col" data-field="{{ key }}" data-filter-control= "input">{{ key }}</th>
+            {% endfor %}
+        </tr>
+
+        <tbody>
+        <tr>
+        {% for behavior in data %}
+            <!-- iterate and populate table with data -->
+            {% for key in behavior.keys() %}
+            <td>{{behavior[key]}}</td>
+            {% endfor %}
+            
+            <td><a href="/delete_behavior/{{behavior.behavior_id}}" class="btn btn-default">Delete</a></td>
+        </tr>
+        {% endfor %}
+        {% endif %}
+    </table>
+</div>
+
+<div id="insert">
+    <!-- form to add a new behavior -->
+    <form id="Add_behavior" action="/behaviors" method="POST">
+        <legend><strong>Add behavior</strong></legend>
+        <fieldset>
+            <!-- placeholder shows ghost text, required forces an input, pattern forces input adherence -->
+            <label for="name">Name:</label>
+            <input type="text" class="form-control" id="name" name="name" placeholder="" required>
+
+            <label for="definition">Definition:</label>
+            <input type="text" class="form-control" id="definition" name="definition" placeholder="" required>
+
+            <label for="client">Client: </label>
+            <select id="client" name="client" required>
+                <!-- Access our tuple passed from app.py-->
+                <option value="0"> </option>
+                {% for client in client_data %}
+                <option value="{{ client['client_id'] }}"> {{client['fname']}} {{client['lname']}}</option>
+                {% endfor %}
+            </select>
+        </fieldset>
+
+        <!-- Create 'Add behavior' and 'Cancel' buttons -->
+        <input type="submit" value="Add behavior" name="Add_behavior" class="btn btn-primary" style="margin:.5rem;">
+        <input class="btn" type="button" value="Cancel">
+    </form>
+</div>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+

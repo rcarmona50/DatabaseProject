@@ -1,0 +1,65 @@
+<html>
+<head>
+	<title>Update Appointment</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div>
+        <table border="1" cellpadding="5"> 
+            <h2>Updating Appointment</h2>
+            {% if data %}
+                <thead>
+                    <tr>
+                        {% for key in data[0].keys() %}
+                        <th scope="col" data-field="{{ key }}" data-filter-control="input">{{ key }}</th>
+                        {% endfor %} 
+                    </tr>
+                <tbody>
+                    {% for item in data %}
+                    <tr>
+                        {% for key in item.keys() %}
+                        <td>{{item[key]}}</td> {% endfor %} 
+                    </tr> 
+                    {% endfor %} 
+            {% endif %} 
+        </table>
+    <p>&nbsp;</p>
+        <div id="edit">
+            <form id="updateAppointment" action="/update_appointment/{{data[0].appointment_id}}" method="post">
+                <legend><strong>Update Appointment</strong></legend>
+                <fieldset>
+                
+                    <input type="hidden" value="{{data[0].appointment_id}}" class="form-control" id="clientID" name="updateAppointment" required>
+
+                    <label for="ID">Select Client</label> 
+                        <select class="form-control" id="clientDD" name="clientDD" pattern="[0-4]{1}" placeholder="" required> 
+                            
+                            <option value="{{data[0].client_id}}">{{data[0].Client}}</option>
+                            {% for clientDD in clientDDs %}                        
+                                <option value="{{clientDD['client_id']}}"> {{clientDD['fname']}} {{clientDD['lname']}} </option>                      
+                            {% endfor %} 
+                        </select>
+
+                    <label for="date">Date:</label>
+                    <input type="date" value="{{data[0].date}}" class="form-control" id="date" name="date" pattern="date" required>
+                    
+                    <label for="time">Time:</label>
+                    <input type="time" value="{{data[0].time}}" class="form-control" id="time" name="time" pattern="">
+                        
+                    <label for="end_time">End Time:</label>
+                    <input type="time" value="{{data[0].end_time}}" class="form-control" id="end_time" name="end_time" pattern=""> 
+
+                    <label for="ID">Provider</label>
+                        <select class="form-control" id="providerDD" name="providerDD" pattern="[0-4]{1}" placeholder="" required> 
+                            <!-- Access our Provider tuple passed from app.py-->
+                            <option value="{{data[0].provider_id}}">{{data[0].Provider}}</option>
+                            {% for providerDD in providerDDs %}                        
+                                <option value="{{ providerDD['provider_id'] }}"> {{providerDD['fname']}} {{providerDD['lname']}}</option>                      
+                            {% endfor %} 
+                        </select>
+                                
+                </fieldset>
+                <input type="submit" value="Update Appointment" name="Update_Appointment" class="btn btn-primary" style="margin:.5rem;">
+                <a href='/appointments'><input class="btn" type="button" value="cancel"></a>
+            </form>
+</html>

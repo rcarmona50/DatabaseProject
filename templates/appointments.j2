@@ -1,0 +1,120 @@
+<html>
+<head>
+<title>Appointments</title>
+<link href="style.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+<h1>Appointment Schedule</h1>
+
+<h3>
+  [Appointments |
+  <a href="client"> Clients |</a>
+  <a href="provider"> Providers |</a>
+  <a href="skills"> Skills |</a>
+  <a href="behaviors"> Behaviors </a>]
+</h3>
+
+
+<p><strong>Appointments</strong></p>
+ 
+ <div class="input-group">
+    <form method="POST">
+        <input type="text" placeholder="Search client_id" name="searched">
+        <input type="submit" class="search-button" name="search" value="Search"> 
+        <a href='/appointments'><input class="btn" type="button" value="Cancel"></a>
+    </form>
+            <table border="1" cellpadding="5">
+              <tbody>
+                {% for row in results%} 
+                <th>appointment_id</th>
+                <th>client_id</th>
+                <th>Client</th>
+                <th>date</th>
+                <th>time</th>
+                <th>end_time</th>
+                <th>Provider</th>
+                <tr>
+                    <td>{{row.appointment_id}}</td>
+                    <td>{{row.client_id}}</td>
+                    <td>{{row.Client}}</td>
+                    <td>{{row.date}}</td> 
+                    <td>{{row.time}}</td>
+                    <td>{{row.end_time}}</td>
+                    <td>{{row.Provider}}</td>
+                </tr> 
+                {% endfor %}        
+            </tbody>
+        </table>
+
+<div id="browse">
+		<table border="1" cellpadding="5">
+            <!-- Access data tuple passed from app.py --> 
+            {% if data %}
+			    <thead>
+				    <tr>
+					    <!-- Iterate through each key in the first entry to get the column name -->
+                        {% for key in data[0].keys() %}
+                        <!-- Create a <th> tag with the key inside of it, this will be our header row -->
+					               <th scope="col" data-field="{{ key }}" data-filter-control="input">{{ key }}</th>
+                        <!-- End of this for loop -->
+                        {% endfor %} 
+                    </tr>
+				<tbody>
+					<!-- Now, iterate through every item in data -->
+                  {% for item in data %}
+					    <tr>
+						    <!-- Then iterate through every key in the current item dictionary -->
+                            {% for key in item.keys() %}
+						    <!-- Create a <td> element with the value of that key in it -->
+						    <td> {{item[key]}} </td> 
+                            {% endfor %}
+          <td><a href="delete_appointment/{{item.appointment_id}}" class="btn btn-default">Delete</a></td>
+           <td><a href="update_appointment/{{item.appointment_id}}" class="btn btn-default">Update</a></td>
+           <td><a href="client_sessions/{{item.appointment_id}}" class="btn btn-default">Session Details</a></td>
+					    </tr> 
+                        {% endfor %} 
+                {% endif %} 
+        </table>   
+	<p>&nbsp;</p>
+
+</div> <!-- Add Appointment -->
+<div id="insert" style="display: block">
+    <form id="Add_appointment" action="/appointments" method="post">
+        <legend><strong>Add Appointment</strong></legend>
+          <fieldset class="fields">
+            <!-- Access our Client tuple passed from app.py-->
+            <label for="ID">Select Client</label>
+            <select class="form-control" id="clientDD" name="clientDD" pattern="[0-4]{1}" placeholder="" required> 
+                  {% for clientDD in clientDDs %}                        
+                    <option value="{{ clientDD['client_id'] }}"> {{clientDD['client_id']}} {{clientDD['fname']}} {{clientDD['lname']}}</option>                      
+                  {% endfor %} 
+              </select>
+
+            <label for="the_date">date:</label>
+				    <input type="date" class="form-control" id="the_date" name="the_date" pattern="date" placeholder="" required>
+
+            <label for="ID">time:</label>
+            <input type="time" class="form-control" id="time" name="time"  placeholder=""> 
+
+            <label for="ID">end_time:</label>
+            <input type="time" class="form-control" id="end_time" name="end_time" pattern="time" placeholder=""> 
+                
+            <label for="ID">Provider</label>
+               <select class="form-control" id="providerDD" name="providerDD" pattern="[0-4]{1}" placeholder="" required> 
+                  <!-- Access our Provider tuple passed from app.py-->
+                  <option value="0">&nbsp;</option>
+                  {% for providerDD in providerDDs %}                        
+                    <option value="{{ providerDD['provider_id'] }}"> {{providerDD['provider_id']}} {{providerDD['fname']}} {{providerDD['lname']}}  </option>                      
+                  {% endfor %} 
+              </select>
+          </fieldset>
+          <input class="btn" type="submit" name="Add_appointment" value="Add">
+          <input class="btn" type="button" value="Cancel">
+	</form> 
+</div><!-- insert -->
+
+
+</body>
+</html>
+

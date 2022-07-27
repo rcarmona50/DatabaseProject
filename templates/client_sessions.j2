@@ -1,0 +1,170 @@
+<html>
+<head>
+    <title>Session Details</title>
+</head>
+<body>
+<h1>Session Details</h1>
+
+<h3>
+  <a href="../appointments">[Appointments |</a>
+  <a href="../client"> Clients |</a>
+  <a href="../provider"> Providers |</a>
+  <a href="../skills"> Skills |</a>
+  <a href="../behaviors"> Behaviors </a>]
+</h3>
+
+
+<div id="browse">
+    <table border="1" cellpadding="5">
+        {% if appointment_data %}
+        <thead>
+        <tr>
+            <!-- iterate through and build the table to display data -->
+            {% for key in appointment_data[0].keys() %}
+                <!-- headers -->
+                <th scope="col" data-field="{{ key }}" data-filter-control= "input">{{ key }}</th>
+            {% endfor %}
+        </tr>
+
+        <tbody>
+        <tr>
+        {% for appointment in appointment_data %}
+            <!-- iterate and populate table with data -->
+            {% for key in appointment.keys() %}
+            <td>{{appointment[key]}}</td>
+            {% endfor %}
+        </tr>
+        {% endfor %}
+        {% endif %}
+    </table>
+   <p> </p>
+
+    <table border="1" cellpadding="5">
+    {% if skill_trial_data %}
+    <thead>
+    <tr>
+        <!-- iterate through and build the table to display data -->
+        {% for key in skill_trial_data[0].keys() %}
+            <!-- headers -->
+            <th scope="col" data-field="{{ key }}" data-filter-control= "input">{{ key }}</th>
+        {% endfor %}
+    </tr>
+
+    <tbody>
+    <tr>
+    {% for skill_trial in skill_trial_data %}
+        <!-- iterate and populate table with data -->
+        {% for key in skill_trial.keys() %}
+        <td>{{skill_trial[key]}}</td>
+        {% endfor %}
+<!--        <td><a href="/edit_skill_trial/{{skill_trial.skill_trial_id}}" class="btn btn-default">Edit</a></td>-->
+        <td><a href="/delete_skill_trial/{{appointment_data[0].appointment_id}}/{{skill_trial.skill_trial_id}}" class="btn btn-default">Delete</a></td>
+    </tr>
+    {% endfor %}
+    {% endif %}
+    </table>
+   <p> </p>
+
+    <table border="1" cellpadding="5">
+    {% if behavior_data %}
+    <thead>
+    <tr>
+        <!-- iterate through and build the table to display data -->
+        {% for key in behavior_data[0].keys() %}
+            <!-- headers -->
+            <th scope="col" data-field="{{ key }}" data-filter-control= "input">{{ key }}</th>
+        {% endfor %}
+    </tr>
+
+    <tbody>
+    <tr>
+    {% for behavior in behavior_data %}
+        <!-- iterate and populate table with data -->
+        {% for key in behavior.keys() %}
+        <td>{{behavior[key]}}</td>
+        {% endfor %}
+<!--        <td><a href="/edit_behavior_event/{{behavior.behavior_event_id}}" class="btn btn-default">Edit</a></td>-->
+        <td><a href="/delete_behavior_event/{{appointment_data[0].appointment_id}}/{{behavior.behavior_event_id}}" class="btn btn-default">Delete</a></td>
+    </tr>
+    {% endfor %}
+    {% endif %}
+    </table>
+   <p> </p>
+</div>
+
+
+<div id="insert">
+    <form id="add_skill" action="/client_sessions/{{appointment_data[0].appointment_id}}" method="post">
+        <legend><strong>Add skill</strong></legend>
+        <fieldset>
+            <label for="name">Name: </label>
+            <select id="name" name="name" required>
+                <!-- Access our tuple passed from app.py-->
+                <option value="0"> </option>
+                    {% for skill in skill_data %}
+                        {% for appointment in appointment_data %}
+                        {% if skill['clients_client_id'] == appointment['clients_client_id'] %}
+                        <option value="{{ skill['skills_id'] }}"> {{skill['name']}}</option>
+                        {% endif %}
+                    {% endfor %}
+                {% endfor %}
+            </select>
+
+            <label for="prompt">Prompt: </label>
+            <select id="prompt" name="prompt">
+                <option value="0"> </option>
+                <option value="independent">independent </option>
+                <option value="gesture">gesture </option>
+                <option value="indirect_verbal">indirect_verbal </option>
+                <option value="direct_verbal">direct_verbal </option>
+                <option value="model">model </option>
+                <option value="partial_physical">partial_physical </option>
+                <option value="full_physical">full_physical </option>
+                <option value="refusal">refusal</option>
+            </select>
+
+            <label>Passed: </label>
+            <label for="passed"> + </label>
+            <input type="radio" id="passed" name="passed" value="1">
+            <label for="passed"> - </label>
+            <input type="radio" id="passed" name="passed" value="0">
+            <input type="hidden" id="passed" name="passed" value="null" checked="checked">
+
+        </fieldset>
+        <input class="btn" type="submit" name="add_skill" value="add_skill">
+        <input class="btn" type="button" value="Cancel">
+    </form>
+
+
+    <form id="add_behavior" action="/client_sessions/{{appointment_data[0].appointment_id}}" method="post">
+        <legend><strong>Add behavior</strong></legend>
+        <fieldset>
+            <label for="behavior_name">Name: </label>
+            <select id="behavior_name" name="behavior_name" required>
+                <!-- Access our tuple passed from app.py-->
+                <option value="0"> </option>
+                    {% for behavior in problem_behavior_data %}
+                        {% for appointment in appointment_data %}
+                        {% if behavior['clients_client_id'] == appointment['clients_client_id'] %}
+                        <option value="{{ behavior['behavior_id'] }}"> {{behavior['name']}}</option>
+                        {% endif %}
+                    {% endfor %}
+                {% endfor %}
+            </select>
+            <label for="time">Start time: </label>
+            <input type="time" id="time" name="time">
+            <label for="end">End time: </label>
+            <input type="time" id="end" name="end">
+
+            <label for="occurrences">Number of occurrences: </label>
+            <input type="number" id="occurrences" name="occurrences" step="1">
+
+        </fieldset>
+        <input class="btn" type="submit" name="add_behavior" value="add_behavior">
+        <input class="btn" type="button" value="Cancel">
+    </form>
+</div>
+
+
+</body>
+</html>

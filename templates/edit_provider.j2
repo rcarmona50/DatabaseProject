@@ -1,0 +1,46 @@
+<html>
+<head>
+	<title>Edit Provider</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div>
+        <table border="1" cellpadding="5"> 
+            <h2>Editing Provider</h2>
+            {% if data %}
+                <thead>
+                    <tr>
+                        {% for key in data[0].keys() %}
+                        <th scope="col" data-field="{{ key }}" data-filter-control="input">{{ key }}</th>
+                        {% endfor %} 
+                    </tr>
+                <tbody>
+                    {% for item in data %}
+                    <tr>
+                        {% for key in item.keys() %}
+                        <td>{{item[key]}}</td> {% endfor %} 
+                    </tr> 
+                    {% endfor %} 
+            {% endif %} 
+        </table>
+    <p>&nbsp;</p>
+        <div id="edit">
+            <form id="editProvider" action="/edit_provider/{{data[0].provider_id}}" method="post">
+                <legend><strong>Edit Provider</strong></legend>
+                <fieldset>
+                
+                    <input type="hidden" value="{{data[0].id}}" class="form-control" id="providerID" name="providerID" required>
+                    <label for="make">First Name:</label>
+                    <input type="text" value="{{data[0].fname}}" class="form-control" id="fname" name="fname" pattern="[A-Za-z]{1,}" required>
+                    
+                    <label for="model">Last Name:</label>
+                    <input type="text" value="{{data[0].lname}}" class="form-control" id="lname" name="lname" pattern="[A-Za-z0-9]{1,}" required>
+                        
+                    <label for="color">Credentials:</label>
+                    <input type="text" value="{{data[0].credentials}}" class="form-control" id="credentials" name="credentials" pattern="[a-zA-Z0-9\s]+"> 
+                
+                </fieldset>
+                <input type="submit" value="Edit Provider" name="Edit_provider" class="btn btn-primary" style="margin:.5rem;">
+                <a href='/provider'><input class="btn" type="button" value="cancel"></a>
+            </form>
+</html>

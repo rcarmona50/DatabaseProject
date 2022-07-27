@@ -1,0 +1,47 @@
+<html>
+<head>
+	<title>Edit Client</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div>
+        <table border="1" cellpadding="5"> 
+            <h2>Editing User</h2>
+            {% if data %}
+                <thead>
+                    <tr>
+                        {% for key in data[0].keys() %}
+                        <th scope="col" data-field="{{ key }}" data-filter-control="input">{{ key }}</th>
+                        {% endfor %} 
+                    </tr>
+                <tbody>
+                    {% for item in data %}
+                    <tr>
+                        {% for key in item.keys() %}
+                        <td>{{item[key]}}</td> {% endfor %} 
+                    </tr> 
+                    {% endfor %} 
+            {% endif %} 
+        </table>
+    <p>&nbsp;</p>
+        <div id="edit">
+            <form id="editClient" action="/edit_client/{{data[0].client_id}}" method="post">
+                <legend><strong>Edit Client</strong></legend>
+                <fieldset>
+                
+                    <input type="hidden" value="{{data[0].id}}" class="form-control" id="clientID" name="clientID" required>
+                    <label for="make">first name:</label>
+                    <input type="text" value="{{data[0].fname}}" class="form-control" id="fname" name="fname" pattern="[A-Za-z]{1,}" required>
+                    
+                    <label for="model">last name:</label>
+                    <input type="text" value="{{data[0].lname}}" class="form-control" id="lname" name="lname" pattern="[A-Za-z0-9]{1,}" required>
+                  
+                        
+                    <label for="color">Insurance Number:</label>
+                    <input type="number" value="{{data[0].insurance_num}}" class="form-control" id="insurance_num" name="insurance_num" pattern=""> 
+                
+                </fieldset>
+                <input type="submit" value="Edit Client" name="Edit_Client" class="btn btn-primary" style="margin:.5rem;">
+                <a href='/client'><input class="btn" type="button" value="cancel"></a>
+            </form>
+</html>

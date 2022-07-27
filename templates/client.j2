@@ -1,0 +1,71 @@
+<html>
+<head>
+    <title>Clients</title>
+     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <h1>Clients</h1>
+    <h3>
+        [<a href="appointments">Appointments |</a>
+        Clients |
+        <a href="provider"> Providers |</a>
+        <a href="skills"> Skills |</a>
+        <a href="behaviors"> Behaviors </a>]
+    </h3>
+   
+    <div id="browse">
+		<table border="1" cellpadding="5">
+            <!-- Access data tuple passed from app.py --> 
+            {% if data %}
+			    <thead>
+				    <tr>
+					    <!-- Iterate through each key in the first entry to get the column name -->
+                        {% for key in data[0].keys() %}
+                        <!-- Create a <th> tag with the key inside of it, this will be our header row -->
+					    <th scope="col" data-field="{{ key }}" data-filter-control="input">{{ key }}</th>
+                        <!-- End of this for loop -->
+                        {% endfor %} 
+                    </tr>
+				<tbody>
+					<!-- Now, iterate through every item in data -->{% for item in data %}
+					    <tr>
+						    <!-- Then iterate through every key in the current item dictionary -->
+                            {% for key in item.keys() %}
+						    <!-- Create a <td> element with the value of that key in it -->
+						    <td> {{item[key]}} </td> 
+                            {% endfor %}
+                            <!-- Create our edit/delete buttons -->
+						    <td><a href="edit_client/{{item.client_id}}" class="btn btn-default">Edit</a></td>
+						    <td><a href="delete_client/{{item.client_id}}" class="btn btn-default">Delete</a></td>
+
+					    </tr> 
+                        {% endfor %} 
+                {% endif %} 
+        </table>   
+	<p>&nbsp;</p>
+	</div>	<!-- browse -->
+
+    <div id="insert">
+		<!-- form to INSERT new data into Client-->
+		<form id="insertClient" action="/client" method="post">
+			<legend><strong>Add Client</strong></legend>
+			<fieldset>
+                <!-- placeholder shows ghost text, required forces an input, pattern forces input adherence -->
+				<label for="first_name">First Name:</label>
+				<input type="text" class="form-control" id="fname" name="fname" pattern="[A-Za-z]{1,}" placeholder="" required>
+
+				<label for="last_name">Last Name:</label>
+				<input type="text" class="form-control" id="lname" name="lname" pattern="[A-Za-z0-9]{1,}" placeholder="" required>
+
+				<label for="insurance">Insurance Number:</label>
+				<input type="text" class="form-control" id="insurance_num" name="insurance_num" pattern="[A-Za-z0-9]{1,}" placeholder=""> 
+            </fieldset>
+
+            <!-- Create 'Add Client' and 'Cancel' buttons -->
+			<input type="submit" value="Add Client" name="Add_Client" class="btn btn-primary" style="margin:.5rem;">
+			<input class="btn" type="button" value="Cancel"> 
+        </form>
+	</div><!--insert-->
+
+</body>
+</html>
