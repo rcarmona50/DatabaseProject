@@ -1,8 +1,9 @@
-DATABASE Project 
+DATABASE Web Application Project 
 
 
 Description: A web application with emphasis on database design and implementation. Created using FLASK, PYTHON, HTML and MySQL. 
 
+    Included:
     - ER Diagrams
     - Data Defintion Quieries
     - Normalized Schema + DDL with Sample Data 
