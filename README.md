@@ -1,4 +1,6 @@
 DATABASE Project 
+
+
 Description: A web application with emphasis on database design and implementation. Created using FLASK, PYTHON, HTML and MySQL. 
 
     - ER Diagrams
