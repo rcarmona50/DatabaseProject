@@ -1,5 +1,4 @@
 DATABASE Project 
-
 Description: A web application with emphasis on database design and implementation. Created using FLASK, PYTHON, HTML and MySQL. 
 
     - ER Diagrams
@@ -7,8 +6,8 @@ Description: A web application with emphasis on database design and implementati
     - Normalized Schema + DDL with Sample Data 
     - Design HTML interface + DML SQL
     - Full CRUD functionality
+    SEE PDF for Schema, Design Outline, etc.
     
-SEE PDF for Schema, Design Outline, etc.
  
 Project Overview & Description:
 
