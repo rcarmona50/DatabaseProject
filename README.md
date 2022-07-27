@@ -1,4 +1,3 @@
-Name: Rafael Carmona & John Jensen
 Description: Therapist application. Code Name: Jellyfish
 
 DATABASE Project
