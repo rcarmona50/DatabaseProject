@@ -1,18 +1,17 @@
-Description: Therapist application. Code Name: Jellyfish
+DATABASE Project 
 
-DATABASE Project
+Description: A web application with emphasis on database design and implementation. Created using FLASK, PYTHON, HTML and MySQL. 
 
 Tech Used: MySQL, Flask, Python
-
-Description: 
-    - A web application designed for database administrators. 
     - ER Diagrams
     - Data Defintion Quieries
     - Normalized Schema + DDL with Sample Data 
     - Design HTML interface + DML SQL
     - Full CRUD functionality
+    
+SEE PDF for Schema, Design Outline, etc.
  
-Overview 
+Project Overview & Description:
 
 Behavior intervention therapists provide services for children with various diagnoses and challenges. Each client’s care is personalized to fit their needs and must be adjusted as the client masters new skills and problem behaviors are reduced. This involves recording data reporting their progress each session and regular monitoring to adjust the goals to ensure the best possible care is being given. The traditional method of recording this data has been writing it on paper, admin staff manually entering it, and then a supervisor graphing and interpreting it. This causes a whole host of problems and has recently been replaced in most settings by Electronic Health Record (EHR) software with varying degrees of success. Implementing these tools has been primary done at a corporate level for larger agencies as EHR software is often costly to implement. Few options exist for independent providers and small agencies. Project Code Name Jellyfish will be the first tool in a suite of tools intended to meet the needs of these unincorporated entities providing ABA (applied behavior analysis) or adjacent services modularly. 
 
