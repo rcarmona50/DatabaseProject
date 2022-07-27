@@ -71,6 +71,6 @@ Database outline
     o Primary Key - skill_trial_id int(11) NOT NULL AUTO_INCREMENT o prompt varchar(20) - refusal, full_physical, partial_physical, model, direct_verbal,  indirect_verbal, gesture, independent – each trial is often marked for how much support was provided to complete a task successfully.
     o passed bool – pass fail data is sometimes taken in leu of monitoring support level
     o This represents the actual data entries performed by providers.
-    o Skill_trials have a M:1 relationship with skills and appointments and reference skill_id and appointment_id as foreign keys.
+    o Skill_trials have a M:1 relationship with skills and appointments and reference skill_id and appointment_id as foreign keys..
 
     
