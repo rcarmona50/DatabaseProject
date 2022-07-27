@@ -2,7 +2,6 @@ DATABASE Project
 
 Description: A web application with emphasis on database design and implementation. Created using FLASK, PYTHON, HTML and MySQL. 
 
-Tech Used: MySQL, Flask, Python
     - ER Diagrams
     - Data Defintion Quieries
     - Normalized Schema + DDL with Sample Data 
